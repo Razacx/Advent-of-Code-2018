@@ -21,6 +21,6 @@ Don't know what to expect? Check out the previous years: [2017](https://adventof
 
 To improve knowledge sharing and experimentation, please document how to build and run your code. It can also be nice to keep a log here:
 
-##### _30/11_
+##### _28/11_
 
 _Today I forked this repository in preparation of the start._
