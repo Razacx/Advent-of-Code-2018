@@ -1,20 +1,18 @@
 //Can't find an elegant way to do this with streams :'(
 
 fun main(args: Array<String>) {
-    val reachedFrequencies = mutableMapOf<Int, Int>()
-    var repeatingChanges = true
+    println("Duplicate frequency found ${findFirstDuplicateReachedFrequency()}")
+}
+
+private fun findFirstDuplicateReachedFrequency(): Int {
+    val reachedFrequencies = mutableSetOf(0)
     var currentFrequency = 0
 
-    while (repeatingChanges) {
+    while (true) {
         for (change in loadFrequencyChanges()) {
             currentFrequency += change
-
-            if(reachedFrequencies[currentFrequency] != null) {
-                println("Duplicate frequency found $currentFrequency")
-                repeatingChanges = false
-                break
-            } else {
-                reachedFrequencies[currentFrequency] = 1
+            if(!reachedFrequencies.add(currentFrequency)) {
+                return currentFrequency
             }
         }
     }
