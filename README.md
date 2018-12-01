@@ -24,3 +24,10 @@ To improve knowledge sharing and experimentation, please document how to build a
 ##### _28/11_
 
 _Today I forked this repository in preparation of the start._
+
+##### _01/12 (~1h)_ 
+
+_Started working on the problem quite late after it was made available._  
+_The first execise proved to be pretty simple (just a summation of numbers)._  
+_The second exercise was a bit harder. I started out wanting to use Java 8's streams to solve it, but was unable to find a readable solution. Eventually I reverted to a good old for loop_  
+_Quite a bit of time was also wasted on getting IntelliJ to pick up the file with the input data -_-_
