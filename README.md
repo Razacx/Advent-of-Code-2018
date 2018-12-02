@@ -39,3 +39,5 @@ _I started of writing some tests for these sub-problems before beginning to writ
 _Finding the correct solution proved to be quite painless because of this_  
 
 _I also worked on a different machine which made me have to do the project setup again. Took me quite a while to get IntelliJ to execute my code again today -\_-_
+
+_(EDIT) Updated the folder structure since I think I'm comitted to Kotlin now (and this makes it so I don't have to setup a new module in IntelliJ every day)_
