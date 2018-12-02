@@ -4,7 +4,7 @@ import java.util.stream.Collectors
 import kotlin.streams.toList
 
 fun main(vararg args: String) {
-    println(getBoxIdsChecksum(loadBoxIds()))
+    println("Id checksum: ${getBoxIdsChecksum(loadBoxIds())}")
 }
 
 fun loadBoxIds(): List<String> {
