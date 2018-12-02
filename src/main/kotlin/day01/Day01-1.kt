@@ -7,7 +7,7 @@ fun main(args: Array<String>) {
 }
 
 fun loadFrequencyChanges(): IntStream {
-    return BufferedReader(FileReader("frequencyChanges.txt"))
+    return BufferedReader(FileReader("input/day01/frequencyChanges.txt"))
             .lines()
             .mapToInt(Integer::parseInt)
 }

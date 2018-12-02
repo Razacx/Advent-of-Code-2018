@@ -1,3 +1,5 @@
+package day02
+
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -13,7 +15,7 @@ class Day02_2Test {
     fun test_getCorrectBoxesPair() {
         assertEquals(
                 Pair("fghij", "fguij"),
-                findCorrectBoxesPair(listOf("abcde","fghij","klmno","pqrst","fguij","axcye","wvxyz"))
+                findCorrectBoxesPair(listOf("abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"))
         )
     }
 

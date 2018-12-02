@@ -1,3 +1,5 @@
+package day02
+
 import java.io.BufferedReader
 import java.io.FileReader
 import java.util.stream.Collectors
@@ -8,7 +10,7 @@ fun main(vararg args: String) {
 }
 
 fun loadBoxIds(): List<String> {
-    return BufferedReader(FileReader("boxIds.txt"))
+    return BufferedReader(FileReader("input/day02/boxIds.txt"))
             .lines()
             .toList()
 }

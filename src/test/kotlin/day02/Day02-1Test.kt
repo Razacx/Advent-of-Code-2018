@@ -1,3 +1,5 @@
+package day02
+
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -23,7 +25,7 @@ class Day02_1Test {
 
     @Test
     fun test_getBoxIdsChecksum() {
-        assertEquals(12, getBoxIdsChecksum(listOf("abcdef", "bababc", "abbcde","abcccd","aabcdd","abcdee","ababab")))
+        assertEquals(12, getBoxIdsChecksum(listOf("abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab")))
     }
 
 }
