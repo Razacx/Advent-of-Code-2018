@@ -78,11 +78,11 @@ fun main(vararg args: String) {
 fun loadClaims(): List<Claim> {
     return BufferedReader(FileReader("input/day03/claims.txt"))
             .lines()
-            .map { line -> parseRectangle(line) }
+            .map { line -> parseClaim(line) }
             .collect(Collectors.toList())
 }
 
-fun parseRectangle(line: String): Claim {
+fun parseClaim(line: String): Claim {
     val result = """#(\d*) @ (\d*),(\d*): (\d*)x(\d*)""".toRegex().matchEntire(line)
     return Claim(
             result!!.groups[1]!!.value.toInt(),

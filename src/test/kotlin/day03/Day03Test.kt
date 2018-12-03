@@ -4,7 +4,7 @@ import day03.Grid.CellState.*
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class Day03_1Test {
+class Day03Test {
 
     @Test
     fun test_gridIsInitializedWithUnclaimedCells() {
@@ -32,9 +32,9 @@ class Day03_1Test {
     }
 
     @Test
-    fun test_parseRectangle() {
-        assertEquals(Rectangle(366, 10, 24, 16), parseRectangle("#1075 @ 366,10: 24x16"))
-        assertEquals(Rectangle(36, 828, 20, 24), parseRectangle("#1093 @ 36,828: 20x24"))
+    fun test_parseClaim() {
+        assertEquals(Claim(1075, Rectangle(366, 10, 24, 16)), parseClaim("#1075 @ 366,10: 24x16"))
+        assertEquals(Claim(1093, Rectangle(36, 828, 20, 24)), parseClaim("#1093 @ 36,828: 20x24"))
     }
 
     @Test
