@@ -44,5 +44,5 @@ _(EDIT) Updated the folder structure since I think I'm comitted to Kotlin now (a
 
 ##### _03/12 (~30m)_
 
-_Learned a bit more about regexes in Kotlin_
+_Learned a bit more about regexes in Kotlin_   
 _Part 2 of the exercise was a trivial extension_
