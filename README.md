@@ -54,7 +54,7 @@ _Phew, what a day..._
 _Started off well using TDD to create something of which I know it works, but I kinda dropped this after a while because I wanted to finish the exercise_  
 _That was a mistake..._
   
-_I took it back up in the evening, removed some hacky code and refactored the whole thing to make more sense_  
+_I picked it up again in the evening, removed some hacky code and refactored the whole thing to make more sense_  
 _Was a breeze from there on out_
 
 _Also had some new insights in how the collection extension functions work in kotlin (mainly groupBy)_  
