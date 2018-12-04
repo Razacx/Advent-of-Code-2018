@@ -46,3 +46,16 @@ _(EDIT) Updated the folder structure since I think I'm comitted to Kotlin now (a
 
 _Learned a bit more about regexes in Kotlin_   
 _Part 2 of the exercise was a trivial extension_
+
+##### _04/12 (~3h)_
+
+_Phew, what a day..._  
+
+_Started off well using TDD to create something of which I know it works, but I kinda dropped this after a while because I wanted to finish the exercise_  
+_That was a mistake..._
+  
+_I took it back up in the evening, removed some hacky code and refactored the whole thing to make more sense_  
+_Was a breeze from there on out_
+
+_Also had some new insights in how the collection extension functions work in kotlin (mainly groupBy)_  
+_It's pretty awesome :)_
