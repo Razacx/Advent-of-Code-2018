@@ -28,7 +28,7 @@ _Today I forked this repository in preparation of the start._
 ##### _01/12 (~1h)_ 
 
 _Started working on the problem quite late after it was made available._  
-_The first execise proved to be pretty simple (just a summation of numbers)._  
+_The first exercise proved to be pretty simple (just a summation of numbers)._  
 _The second exercise was a bit harder. I started out wanting to use Java 8's streams to solve it, but was unable to find a readable solution. Eventually I reverted to a good old for loop_  
 _Quite a bit of time was also wasted on getting IntelliJ to pick up the file with the input data -\_-_
 
@@ -40,11 +40,11 @@ _Finding the correct solution proved to be quite painless because of this_
 
 _I also worked on a different machine which made me have to do the project setup again. Took me quite a while to get IntelliJ to execute my code again today -\_-_
 
-_(EDIT) Updated the folder structure since I think I'm comitted to Kotlin now (and this makes it so I don't have to setup a new module in IntelliJ every day)_
+_(EDIT) Updated the folder structure since I think I'm committed to Kotlin now (and this makes it so I don't have to setup a new module in IntelliJ every day)_
 
 ##### _03/12 (~30m)_
 
-_Learned a bit more about regexes in Kotlin_   
+_Learned a bit more about regexps in Kotlin_   
 _Part 2 of the exercise was a trivial extension_
 
 ##### _04/12 (~3h)_
