@@ -25,14 +25,20 @@ class StatsTest {
 
     @Test
     fun test_getGuardWithMostMinutesAsleep() {
-        assertEquals(1, getGuardWithMostMinutesAsleep(guardPeriodsStrategy1))
+        assertEquals(Pair(1, 59), getGuardWithMostMinutesAsleep(guardPeriodsStrategy1))
     }
 
     @Test
     fun test_getMinuteSleptMostOn() {
-        assertEquals(30, getMinuteSleptMostOn(guardPeriodsStrategy1, 1))
+        assertEquals(Pair(30, 2), getMinuteSleptOnMost(guardPeriodsStrategy1, 1))
     }
 
+    @Test
+    fun test_getGuardThatWasMostAsleepOnSameMinuteTuple() {
+        val (guardId, minute, times) = getGuardThatWasMostAsleepOnSameMinuteTuple(guardPeriodsStrategy2)
 
-
+        assertEquals(guardId, 2)
+        assertEquals(minute, 30)
+        assertEquals(times, 3)
+    }
 }
