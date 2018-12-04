@@ -4,9 +4,11 @@ import day04.GuardState.ASLEEP
 import day04.GuardState.AWAKE
 import java.io.BufferedReader
 import java.io.FileReader
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
 
-abstract class Event(val timestamp: TimeStamp) {
+abstract class Event(val timestamp: LocalDateTime) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -23,11 +25,10 @@ abstract class Event(val timestamp: TimeStamp) {
     }
 }
 
-class ShiftChangeEvent(val guardId: Int, timeStamp: TimeStamp) : Event(timeStamp) {
+class ShiftChangeEvent(val guardId: Int, timestamp: LocalDateTime) : Event(timestamp) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-        if (!super.equals(other)) return false
 
         other as ShiftChangeEvent
 
@@ -37,38 +38,22 @@ class ShiftChangeEvent(val guardId: Int, timeStamp: TimeStamp) : Event(timeStamp
     }
 
     override fun hashCode(): Int {
-        var result = super.hashCode()
-        result = 31 * result + guardId
-        return result
+        return guardId
     }
 }
 
-class SleepEvent(timeStamp: TimeStamp) : Event(timeStamp)
+class SleepEvent(timestamp: LocalDateTime) : Event(timestamp)
 
-class WakeEvent(timeStamp: TimeStamp) : Event(timeStamp)
+class WakeEvent(timestamp: LocalDateTime) : Event(timestamp)
 
-data class TimeStamp(val year: Int, val month: Int, val day: Int, val hour: Int, val minute: Int) : Comparable<TimeStamp> {
-    override fun compareTo(other: TimeStamp): Int {
-        if (year > other.year) return 1
-        if (year < other.year) return -1
-        if (month > other.month) return 1
-        if (month < other.month) return -1
-        if (day > other.day) return 1
-        if (day < other.day) return -1
-        if (hour > other.hour) return 1
-        if (hour < other.hour) return -1
-        return minute - other.minute
-    }
-}
-
-data class Period(val from: TimeStamp, val to: TimeStamp) {
+data class Period(val from: LocalDateTime, val to: LocalDateTime) {
     fun minuteDifference(): Int {
-        return to.minute - from.minute //WTFFFFFF
-        //Fix this
+        return ChronoUnit.MINUTES.between(from, to).toInt()
+
     }
 
     fun getMinutes(): List<Int> {
-        return (from.minute..to.minute).toList()
+        return (from.minute..to.minute).toList() //Kind of a hack...
     }
 }
 
@@ -93,9 +78,9 @@ fun parseGuardId(line: String): Int {
     return """.*Guard #(\d+).*""".toRegex().matchEntire(line)!!.groups[1]!!.value.toInt()
 }
 
-fun parseTimestamp(timestamp: String): TimeStamp {
+fun parseTimestamp(timestamp: String): LocalDateTime {
     val result = """^\[(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})].*""".toRegex().matchEntire(timestamp)
-    return TimeStamp(
+    return LocalDateTime.of(
             result!!.groups[1]!!.value.toInt(),
             result.groups[2]!!.value.toInt(),
             result.groups[3]!!.value.toInt(),
@@ -111,10 +96,7 @@ fun getGuardPeriod(guardId: Int, fromEvent: Event, toEvent: Event): GuardPeriod 
         is SleepEvent -> ASLEEP
         else -> throw IllegalArgumentException("Unknown state for GuardPeriod")
     }
-    // Creating my own Timestamp class was a mistake...
-    // Minute shouldn't be able to become negative using the given input though (events are from 00-59)
-    // TODO, Think about refactoring this later
-    return GuardPeriod(guardId, state, Period(fromEvent.timestamp, TimeStamp(toEvent.timestamp.year, toEvent.timestamp.month, toEvent.timestamp.day, toEvent.timestamp.hour, toEvent.timestamp.minute - 1)))
+    return GuardPeriod(guardId, state, Period(fromEvent.timestamp, toEvent.timestamp.minusMinutes(1)))
 }
 
 fun getGuardPeriods(events: List<Event>): List<GuardPeriod> {
