@@ -8,13 +8,15 @@ import kotlin.test.assertTrue
 class Day05Test {
 
     @Test
-    fun test_reactPolymer_removesPolarOppositePairs() {
-        assertEquals("", react("aA"))
-        assertEquals("AA", react("AA"))
-        assertEquals("A", react("AAa"))
-        assertEquals("aa", react("aa"))
-        assertEquals("aA", react("aBbA"))
-        assertEquals("aBAb", react("aBAb"))
+    fun test_react_givesFinalPolymer() {
+        assertEquals("", "aA".react())
+        assertEquals("AA", "AA".react())
+        assertEquals("A", "AAa".react())
+        assertEquals("aa", "aa".react())
+        assertEquals("", "aBbA".react())
+        assertEquals("aBAb", "aBAb".react())
+        assertEquals("ac", "aBcCbc".react())
+        assertEquals("c", "cCc".react())
     }
 
     @Test

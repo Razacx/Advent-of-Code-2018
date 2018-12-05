@@ -1,33 +1,16 @@
 package day05
 
+import java.io.BufferedReader
+import java.io.FileReader
 import java.lang.Character.isUpperCase
 
 typealias Polymer = String
 typealias PolymerPair = String
 
-fun react(polymer: Polymer): Polymer {
-    var result = ""
+fun Polymer.react(): Polymer {
 
-    for (i in 0 until polymer.length) {
-        val previousPair: PolymerPair? =
-                if (i > 0) {
-                    polymer[i - 1].toString() + polymer[i].toString()
-                } else {
-                    null
-                }
-        val nextPair: PolymerPair? =
-                if (i < polymer.length - 1) {
-                    polymer[i].toString() + polymer[i + 1].toString()
-                } else {
-                    null
-                }
 
-        if(!(previousPair?.isPolarPair() == true || nextPair?.isPolarPair() == true)) {
-            result += polymer[i]
-        }
-    }
 
-    return result
 }
 
 fun PolymerPair.isPolarPair(): Boolean {
@@ -41,5 +24,12 @@ fun PolymerPair.isPolarPair(): Boolean {
     return sameCharacter && polarOpposites
 }
 
+fun main(vararg args: String) {
 
+    println(BufferedReader(FileReader("input/day05/polymer.txt")).readLine().length)
 
+    val finalPolymer = BufferedReader(FileReader("input/day05/polymer.txt"))
+            .readLine().react()
+
+    println("Final polymer has ${finalPolymer.length} units\n$finalPolymer")
+}
