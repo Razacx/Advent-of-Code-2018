@@ -8,15 +8,20 @@ import kotlin.test.assertTrue
 class Day05Test {
 
     @Test
-    fun test_react_givesFinalPolymer() {
-        assertEquals("", "aA".react())
-        assertEquals("AA", "AA".react())
-        assertEquals("A", "AAa".react())
-        assertEquals("aa", "aa".react())
-        assertEquals("", "aBbA".react())
-        assertEquals("aBAb", "aBAb".react())
+    fun test_react_doesFullReaction() {
         assertEquals("ac", "aBcCbc".react())
-        assertEquals("c", "cCc".react())
+    }
+
+    @Test
+    fun test_reactionCycle() {
+        assertEquals("", "aA".reactionCycle())
+        assertEquals("AA", "AA".reactionCycle())
+        assertEquals("A", "AAa".reactionCycle())
+        assertEquals("aa", "aa".reactionCycle())
+        assertEquals("aA", "aBbA".reactionCycle())
+        assertEquals("aBAb", "aBAb".reactionCycle())
+        assertEquals("aBbc", "aBcCbc".reactionCycle())
+        assertEquals("c", "cCc".reactionCycle())
     }
 
     @Test
