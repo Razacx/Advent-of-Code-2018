@@ -59,3 +59,11 @@ _Was a breeze from there on out_
 
 _Also had some new insights in how the collection extension functions work in kotlin (mainly groupBy)_  
 _It's pretty awesome :)_
+
+### _05/15 (~2h)_
+
+_This took me way longer than I'd like to admit_  
+_Don't know if it was an issue with my mood or just that I'm stupid_  
+_The final solution I delivered also takes about a minute to run, which is not great :/_
+
+_I'd like to revisit this one if I find the time_
