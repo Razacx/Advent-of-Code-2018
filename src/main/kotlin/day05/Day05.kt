@@ -17,25 +17,25 @@ fun Polymer.react(): Polymer {
 }
 
 fun Polymer.reactionCycle(): Polymer {
-    var result = ""
+    var result = StringBuilder()
 
     var i = 0
     while (i < length) {
         if (i != length - 1) {
             val pair = this[i].toString() + this[i + 1].toString()
             if (!pair.isPolarPair()) {
-                result += this[i]
+                result.append(this[i])
                 i++
             } else {
                 i += 2
             }
         } else {
-            result += this[i]
+            result.append(this[i])
             i++
         }
     }
 
-    return result
+    return result.toString()
 }
 
 fun PolymerPair.isPolarPair(): Boolean {
