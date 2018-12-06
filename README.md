@@ -60,10 +60,18 @@ _Was a breeze from there on out_
 _Also had some new insights in how the collection extension functions work in kotlin (mainly groupBy)_  
 _It's pretty awesome :)_
 
-### _05/15 (~2h)_
+### _05/12 (~2h)_
 
 _This took me way longer than I'd like to admit_  
 _Don't know if it was an issue with my mood or just that I'm stupid_  
 _The final solution I delivered also takes about a minute to run, which is not great :/_
 
 _I'd like to revisit this one if I find the time_
+
+### _06/12 (~2h 30m)_
+
+_Could have maybe re-used some code from day 3 (with the fabric)??_  
+_The Manhattan distance constraint brought up some interesting discussions with my co-workers about when an area is infinite_
+
+_I think I should really make some sort of generic Grid class though._   
+_I'm expecting more of these types of 2D problems_
