@@ -3,9 +3,12 @@ package day05
 import java.io.BufferedReader
 import java.io.FileReader
 import java.lang.Character.isUpperCase
+import kotlin.system.measureTimeMillis
 
 typealias Polymer = String
 typealias PolymerPair = String
+
+val alphabet = "abcdefghijklmnopqrstuvwxyz".split("").filter { it != "" }
 
 fun Polymer.react(): Polymer {
     val newPolymer = reactionCycle()
@@ -15,6 +18,26 @@ fun Polymer.react(): Polymer {
         this
     }
 }
+
+//Test with regex --------------------------------------------------------
+fun Polymer.regexReactionCycle(): Polymer {
+    return generatePairsRegex().replace(this, "")
+}
+
+fun generatePairsRegex(): Regex {
+    val regex = StringBuilder()
+
+    alphabet.forEach {
+        val lowercase = it.toLowerCase()
+        val uppercase = it.toUpperCase()
+        var groups = "$lowercase$uppercase|$uppercase$lowercase|"
+        if(lowercase == "z") groups = groups.substring(0, groups.length - 1)
+        regex.append(groups)
+    }
+
+    return regex.toString().toRegex()
+}
+// -----------------------------------------------------------------------
 
 fun Polymer.reactionCycle(): Polymer {
     var result = StringBuilder()
@@ -57,13 +80,17 @@ fun main(vararg args: String) {
     val polymer = BufferedReader(FileReader("input/day05/polymer.txt"))
             .readLine()
 
-    val finalPolymer = polymer.react()
-    println("Final polymer has ${finalPolymer.length} units")
+    val runtimeInMs = measureTimeMillis {
 
-    val minPolymerLength = "abcdefghijklmnopqrstuvwxyz".split("")
-            .filter { it != "" }
-            .parallelStream()
-            .mapToInt { finalPolymer.getWithoutUnit(it).react().length }
-            .min().asInt
-    println("Shortest possible polymer when removing 1 unit type: $minPolymerLength")
+        val finalPolymer = polymer.react()
+        println("Final polymer has ${finalPolymer.length} units")
+
+        val minPolymerLength = alphabet
+                .parallelStream()
+                .mapToInt { finalPolymer.getWithoutUnit(it).react().length }
+                .min().asInt
+        println("Shortest possible polymer when removing 1 unit type: $minPolymerLength")
+
+    }
+    println("Program ran in ${runtimeInMs}ms")
 }
