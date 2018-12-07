@@ -1,99 +1,8 @@
 package day06
 
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
-class Day06Test {
-
-    @Test
-    fun test_coordinates_manhattanDistance() {
-        assertEquals(5, Coordinates(1, 2).manhattanDistance(Coordinates(3, 5)))
-        assertEquals(4, Coordinates(0, 0).manhattanDistance(Coordinates(2, 2)))
-        assertEquals(3, Coordinates(0, 0).manhattanDistance(Coordinates(-1, -2)))
-        assertEquals(2, Coordinates(0, 0).manhattanDistance(Coordinates(1, 1)))
-        assertEquals(0, Coordinates(0, 0).manhattanDistance(Coordinates(0, 0)))
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun test_bounds_throwsException_ifMinXLargerThanMaxX() {
-        Bounds(10, 0, 0, 10)
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun test_bounds_throwsException_ifMinYLargerThanMaxY() {
-        Bounds(0, 10, 10, 0)
-    }
-
-    @Test
-    fun test_bounds_valid() {
-        Bounds(0, 0, 10, 10)
-        Bounds(0, 0, 0, 0)
-    }
-
-    @Test
-    fun test_bounds_width_height() {
-        val bounds = Bounds(0, 0, 10, 5)
-        assertEquals(11, bounds.width())
-        assertEquals(6, bounds.height())
-    }
-
-    @Test
-    fun test_bounds_fromCoordinates() {
-        val bounds = Bounds.fromCoordinates(listOf(
-                Coordinates(-1, 0),
-                Coordinates(0, -2),
-                Coordinates(3, 0),
-                Coordinates(0, 4)
-        ))
-        assertEquals(Bounds(-1, -2, 3, 4), bounds)
-    }
-
-    @Test
-    fun test_parseCoordinates() {
-        assertEquals(Coordinates(353, 77), parseCoordinates("353, 77"))
-        assertEquals(Coordinates(81, 328), parseCoordinates("81, 328"))
-        assertEquals(Coordinates(136, 316), parseCoordinates("136, 316"))
-        assertEquals(Coordinates(136, 316), parseCoordinates("136, 316   "))
-    }
-
-    @Test
-    fun test_findClosestIdentifiedCoordinatesId() {
-        assertEquals(
-                2,
-                findClosestIdentifiedCoordinatesId(
-                        listOf(
-                                IdentifiedCoordinates(1, Coordinates(60, 0)),
-                                IdentifiedCoordinates(2, Coordinates(0, 0))
-                        ),
-                        Coordinates(5, 0)
-                )
-        )
-        assertEquals(
-                -1,
-                findClosestIdentifiedCoordinatesId(
-                        listOf(
-                                IdentifiedCoordinates(1, Coordinates(1, 0)),
-                                IdentifiedCoordinates(2, Coordinates(5, 0))
-                        ),
-                        Coordinates(3, 0)
-                )
-        )
-    }
-
-    @Test
-    fun test_2DIntArray_transpose() {
-        assertTrue(
-                arrayOf(
-                        arrayOf(1, 3, 5),
-                        arrayOf(2, 4, 6)
-                ) contentDeepEquals arrayOf(
-                        arrayOf(1, 2),
-                        arrayOf(3, 4),
-                        arrayOf(5, 6)
-                ).transpose()
-        )
-    }
+class GridKtTest {
 
     @Test
     fun test_grid_fillClosestToCoordinatesWithCoordinateId() {
@@ -108,10 +17,10 @@ class Day06Test {
         val bounds = Bounds.fromCoordinates(coordinates.map(IdentifiedCoordinates::coordinates))
         val grid = Grid(bounds)
 
-        grid.fillClosestToCoordinatesWithCoordinateId(coordinates)
+        grid.fillWithClosestCoordinatesId(coordinates)
 
         val gridValues = grid.grid
-        assertTrue {
+        kotlin.test.assertTrue {
             arrayOf(
                     arrayOf(1, 1, 1, 1, -1, 3, 3, 3),
                     arrayOf(1, 1, 4, 4, 5, 3, 3, 3),
@@ -139,9 +48,9 @@ class Day06Test {
         val bounds = Bounds.fromCoordinates(coordinates.map(IdentifiedCoordinates::coordinates))
         val grid = Grid(bounds)
 
-        grid.fillClosestToCoordinatesWithCoordinateId(coordinates)
+        grid.fillWithClosestCoordinatesId(coordinates)
 
-        assertEquals(
+        kotlin.test.assertEquals(
                 listOf(1, 2, 3, 6),
                 grid.getIdsAtEdge().sorted()
         )
@@ -160,10 +69,10 @@ class Day06Test {
         val bounds = Bounds.fromCoordinates(coordinates.map(IdentifiedCoordinates::coordinates))
         val grid = Grid(bounds)
 
-        grid.fillClosestToCoordinatesWithCoordinateId(coordinates)
+        grid.fillWithClosestCoordinatesId(coordinates)
 
-        assertEquals(9, grid.getAreaOfId(4))
-        assertEquals(17, grid.getAreaOfId(5))
+        kotlin.test.assertEquals(9, grid.getAreaForCellsMatchingCondition { it == 4 })
+        kotlin.test.assertEquals(17, grid.getAreaForCellsMatchingCondition { it == 5 })
     }
 
     @Test
@@ -178,7 +87,7 @@ class Day06Test {
 
         grid.fillWithCumulativeDistanceToAllCoordinates(coordinates)
 
-        assertTrue(
+        kotlin.test.assertTrue(
                 arrayOf(
                         arrayOf(5, 4),
                         arrayOf(6, 5)
@@ -198,7 +107,7 @@ class Day06Test {
 
         grid.fillWithCumulativeDistanceToAllCoordinates(coordinates)
 
-        assertEquals(3, grid.getAreaWithCumulativeDistanceSmallerThan(6))
+        kotlin.test.assertEquals(3, grid.getAreaForCellsMatchingCondition { it < 6 })
     }
 
 }
