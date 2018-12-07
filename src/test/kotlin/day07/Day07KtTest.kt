@@ -22,23 +22,7 @@ class Day07KtTest {
                 Requirement("A", "B"),
                 Requirement("B", "C")
         )
-
-        assertEquals(
-                Node(
-                        "C",
-                        listOf(
-                                Node(
-                                        "B",
-                                        listOf(
-                                                Node(
-                                                        "A",
-                                                        listOf()
-                                                )
-                                        )
-                                )
-                        )
-                ),
-                null)
+        assertEquals(Node("C", mutableListOf(Node("B", mutableListOf(Node("A", mutableListOf()))))), buildDependencyGraph(requirements))
     }
 
     @Test
@@ -47,12 +31,11 @@ class Day07KtTest {
                 Requirement("A", "B"),
                 Requirement("B", "C")
         )
-
         assertEquals(
                 listOf(
-                        Node("A", listOf()),
-                        Node("B", listOf()),
-                        Node("C", listOf())
+                        Node("A", mutableListOf()),
+                        Node("B", mutableListOf()),
+                        Node("C", mutableListOf())
                 ),
                 buildBaseNodes(requirements)
         )
