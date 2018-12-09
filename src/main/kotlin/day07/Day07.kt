@@ -84,7 +84,7 @@ fun resolveGraphExecutionOrder(requirements: List<Requirement>): String {
 data class WorkOrder(var timeLeft: Int, val node: Node)
 
 //Brute forcing it...
-fun resolveGraphExecutionTime(requirements: List<Requirement>, workers: Int): Int {
+fun resolveGraphExecutionTime(requirements: List<Requirement>, workers: Int, nodeTimeRequirementFunc: (Node) -> Int): Int {
     val finalNode = buildDependencyGraph(requirements)
     var timePassed = 0
 
@@ -110,7 +110,7 @@ fun resolveGraphExecutionTime(requirements: List<Requirement>, workers: Int): In
                 return
             } else {
                 val node = availableNodes.removeAt(0)
-                workerTasks[worker] = WorkOrder(getNodeTimeRequirement(node), node)
+                workerTasks[worker] = WorkOrder(nodeTimeRequirementFunc(node), node)
             }
         }
     }
@@ -127,8 +127,8 @@ fun resolveGraphExecutionTime(requirements: List<Requirement>, workers: Int): In
     return timePassed
 }
 
-fun getNodeTimeRequirement(node: Node): Int {
-    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(node.id) + 1 + 60
+fun getNodeTimeRequirementFunction(offset: Int): (Node) -> Int {
+    return { node -> "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(node.id) + 1 + offset }
 }
 
 // This solving strategy is wrong :(
@@ -156,7 +156,7 @@ fun main(vararg args: String) {
     println("Execution order: \n\t$executionOrder")
     println()
 
-    val executionTime = resolveGraphExecutionTime(requirements, 5)
+    val executionTime = resolveGraphExecutionTime(requirements, 5, getNodeTimeRequirementFunction(60))
 
     println("Execution time with 5 workers: \n\t${executionTime}s")
 

@@ -102,7 +102,7 @@ class Day07KtTest {
                 Requirement("D", "E"),
                 Requirement("F", "E")
         )
-        assertEquals(15, resolveGraphExecutionTime(requirements, 2))
+        assertEquals(15, resolveGraphExecutionTime(requirements, 2, getNodeTimeRequirementFunction(0)))
     }
 
 }
