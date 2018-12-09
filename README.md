@@ -75,3 +75,13 @@ _The Manhattan distance constraint brought up some interesting discussions with 
 
 _I think I should really make some sort of generic Grid class though._   
 _I'm expecting more of these types of 2D problems_
+
+### _07/12 (~?)_
+
+_Cool exercise, forgot to update this log the day I finished it_  
+_Kinda brute-forced and hacked together part 2_
+
+### _08/12 (~40m)_
+
+_Pretty straightforward_   
+_Parsing the data was the hardest part of the exercise_
