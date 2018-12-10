@@ -96,7 +96,7 @@ class Window(private val world: World) : JFrame("Simulation") {
         advanceSimulation(beginSteps)
     }
 
-    fun advanceSimulation(steps: Int) {
+    private fun advanceSimulation(steps: Int) {
         world.simulate(steps); renderComponent.repaint()
         stepsLabel.text = "Steps: " + world.steps
     }
