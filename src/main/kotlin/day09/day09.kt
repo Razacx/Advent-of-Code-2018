@@ -28,7 +28,7 @@ class Game(private val players: Int, private val lastMarbleValue: Int) {
     private var currentPlayer: Int = 0
     private val scores: MutableMap<Int, Long> = mutableMapOf()
 
-    fun placeNextMarble(playerId: Int) {
+    private fun placeNextMarble(playerId: Int) {
         currentMarbleValue++
 
         if(currentMarbleValue % 23 == 0) {
