@@ -85,3 +85,8 @@ _Kinda brute-forced and hacked together part 2_
 
 _Pretty straightforward_   
 _Parsing the data was the hardest part of the exercise_
+
+### _10/12 (~1h)_
+
+_Very fun exercise! Was able to make use of my limited Swing knowledge here to make a visualisation tool_  
+_Searching around for the correct scale and position on which you can see the word felt quite hackish though :p_
