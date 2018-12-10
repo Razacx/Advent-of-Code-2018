@@ -97,4 +97,5 @@ _All the other logic for playing the game is encapsulated in a single class (but
 ### _10/12 (~1h)_
 
 _Very fun exercise! Was able to make use of my limited Swing knowledge here to make a visualisation tool_  
-_Searching around for the correct scale and position on which you can see the word felt quite hackish though :p_
+_Searching around for the correct scale and position on which you can see the word felt quite hackish though :p_  
+_I'm wondering if there is a good stopping-condition you can define_
