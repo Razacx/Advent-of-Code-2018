@@ -86,6 +86,14 @@ _Kinda brute-forced and hacked together part 2_
 _Pretty straightforward_   
 _Parsing the data was the hardest part of the exercise_
 
+### _09/12 (~45m)_
+
+_Went into this thinking performance was going to be a large issue (a colleague talked about 30+ mins of runtime with his solution.)_  
+_Was pleasantly surprised that using a linked list like structure can solve it in under a second_  
+
+_Making the node structure for the linked list was the hardest part of the exercise for me_  
+_All the other logic for playing the game is encapsulated in a single class (but remains pretty simple)_
+
 ### _10/12 (~1h)_
 
 _Very fun exercise! Was able to make use of my limited Swing knowledge here to make a visualisation tool_  
