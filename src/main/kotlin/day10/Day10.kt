@@ -117,7 +117,7 @@ class RenderComponent(private val world: World) : JPanel() {
         world.particles.forEach {
 
             val screenPosition = it.position
-            g2d.fillRect(screenPosition.x + 500, screenPosition.y + 500, 2, 2)
+            g2d.fillRect(screenPosition.x + 500, screenPosition.y + 500, 1, 1)
 
         }
     }
