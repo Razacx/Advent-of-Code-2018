@@ -99,3 +99,11 @@ _All the other logic for playing the game is encapsulated in a single class (but
 _Very fun exercise! Was able to make use of my limited Swing knowledge here to make a visualisation tool_  
 _Searching around for the correct scale and position on which you can see the word felt quite hackish though :p_  
 _I'm wondering if there is a good stopping-condition you can define_
+
+### _11/12 (~1h 30m)_
+
+_Finally took the time to create some sort of generic Grid2D util (since it seems there are a lot of exercises that require this)_  
+_Learned some new stuff about type-aliases and generics in kotlin (reified -> NO RUNTIME TYPE ERASURE :D)_  
+
+_The exercise itself went wuite well. I had some  issues with performance for part 2 though._  
+_Not sure how to solve this without brute-forcing the solution..._
