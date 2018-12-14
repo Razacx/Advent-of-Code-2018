@@ -47,3 +47,5 @@ fun evolve(currentGeneration: List<Long>, ruleSet: RuleSet): List<Long> {
 
     return nextGeneration
 }
+
+//Look at test file for solution...
