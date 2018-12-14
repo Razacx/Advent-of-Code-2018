@@ -105,10 +105,13 @@ _I'm wondering if there is a good stopping-condition you can define_
 _Finally took the time to create some sort of generic Grid2D util (since it seems there are a lot of exercises that require this)_  
 _Learned some new stuff about type-aliases and generics in kotlin (reified -> NO RUNTIME TYPE ERASURE :D)_  
 
-_The exercise itself went wuite well. I had some  issues with performance for part 2 though._  
+_The exercise itself went quite well. I had some  issues with performance for part 2 though._  
 _Not sure how to solve this without brute-forcing the solution..._
 
-### _12/12 ()_
+### _12/12 (40m)_
 
 _First of all, before I begin with this problem:_  
 _The problem description is worded too hard_
+
+_Looks a lot like game of life (in one dimension)_  
+_For part 2, it was pretty obvious that the simulation would go into a predictable (looping) state (as this is also the case for game of life)_
