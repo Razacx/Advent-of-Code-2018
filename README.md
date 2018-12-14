@@ -107,3 +107,8 @@ _Learned some new stuff about type-aliases and generics in kotlin (reified -> NO
 
 _The exercise itself went wuite well. I had some  issues with performance for part 2 though._  
 _Not sure how to solve this without brute-forcing the solution..._
+
+### _12/12 ()_
+
+_First of all, before I begin with this problem:_  
+_The problem description is worded too hard_
