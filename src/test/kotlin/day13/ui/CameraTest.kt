@@ -6,14 +6,14 @@ import day13.model.DoubleCoordinates
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class VisualizationWindowKtTest {
+class CameraTest {
 
     @Test
     fun test_screenToWorldCoordinates() {
         val screenCoordinates = Coordinates(5, 10)
         val camera = Camera(2.0, 0.0, 0.0)
 
-        val worldCoordinates = screenToWorldCoordinates(camera, screenCoordinates)
+        val worldCoordinates = camera.screenToWorldCoordinates(screenCoordinates)
 
         assertEquals(DoubleCoordinates(2.5, 5.0), worldCoordinates)
     }
@@ -23,7 +23,7 @@ class VisualizationWindowKtTest {
         val screenCoordinates = Coordinates(10, 10)
         val camera = Camera(2.0, 1.0, 2.0)
 
-        val worldCoordinates = screenToWorldCoordinates(camera, screenCoordinates)
+        val worldCoordinates = camera.screenToWorldCoordinates(screenCoordinates)
 
         assertEquals(DoubleCoordinates(6.0, 7.0), worldCoordinates)
     }
@@ -32,7 +32,7 @@ class VisualizationWindowKtTest {
     fun test_getWorldBounds() {
         val camera = Camera(2.0, 0.0, 0.0)
 
-        val worldBounds = getWorldBounds(camera, 10, 10)
+        val worldBounds = camera.getWorldBounds(10, 10)
 
         assertEquals(Bounds(0, 0, 5, 5), worldBounds)
     }

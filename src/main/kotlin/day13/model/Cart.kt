@@ -4,7 +4,29 @@ import day06.Coordinates
 
 open class Cart(open var position: Coordinates,
                 var direction: Direction,
-                var junctionState: JunctionState)
+                var junctionState: JunctionState) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Cart
+
+        if (position != other.position) return false
+        if (direction != other.direction) return false
+        if (junctionState != other.junctionState) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = position.hashCode()
+        result = 31 * result + direction.hashCode()
+        result = 31 * result + junctionState.hashCode()
+        return result
+    }
+
+}
 
 class InterpolatedCart(private val cart: Cart) : Cart(cart.position, cart.direction, cart.junctionState) {
 
@@ -19,8 +41,8 @@ class InterpolatedCart(private val cart: Cart) : Cart(cart.position, cart.direct
 
     fun getInterpolatedCoordinates(t: Double): DoubleCoordinates {
         return DoubleCoordinates(
-                (position.x - previousPosition.x) * t,
-                (position.y - previousPosition.y) * t
+                previousPosition.x + (position.x - previousPosition.x) * t,
+                previousPosition.y + (position.y - previousPosition.y) * t
         )
     }
 

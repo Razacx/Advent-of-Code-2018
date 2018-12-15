@@ -15,4 +15,15 @@ class InterpolatedCartTest {
 
         assertEquals(DoubleCoordinates(0.7, 0.7), interpolatedCoordinates)
     }
+
+    @Test
+    fun getInterpolatedCoordinates_fromOffset() {
+        val cart = InterpolatedCart(Cart(Coordinates(2, 2), Direction.North, JunctionState.Straight))
+        cart.position = Coordinates(6, 6)
+
+        val interpolatedCoordinates = cart.getInterpolatedCoordinates(0.25)
+
+        assertEquals(DoubleCoordinates(3.0, 3.0), interpolatedCoordinates)
+    }
+
 }
