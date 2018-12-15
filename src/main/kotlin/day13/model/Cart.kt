@@ -2,7 +2,8 @@ package day13.model
 
 import day06.Coordinates
 
-open class Cart(open var position: Coordinates,
+open class Cart(val id: Int,
+                open var position: Coordinates,
                 var direction: Direction,
                 var junctionState: JunctionState) {
 
@@ -12,6 +13,7 @@ open class Cart(open var position: Coordinates,
 
         other as Cart
 
+        if (id != other.id) return false
         if (position != other.position) return false
         if (direction != other.direction) return false
         if (junctionState != other.junctionState) return false
@@ -20,7 +22,8 @@ open class Cart(open var position: Coordinates,
     }
 
     override fun hashCode(): Int {
-        var result = position.hashCode()
+        var result = id
+        result = 31 * result + position.hashCode()
         result = 31 * result + direction.hashCode()
         result = 31 * result + junctionState.hashCode()
         return result
@@ -28,7 +31,7 @@ open class Cart(open var position: Coordinates,
 
 }
 
-class InterpolatedCart(private val cart: Cart) : Cart(cart.position, cart.direction, cart.junctionState) {
+class InterpolatedCart(private val cart: Cart) : Cart(cart.id, cart.position, cart.direction, cart.junctionState) {
 
     private var previousPosition: Coordinates = cart.position
 

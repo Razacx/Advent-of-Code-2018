@@ -12,6 +12,7 @@ import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JPanel
 
+@Deprecated("Was only for testing...")
 class TestRenderer(private val camera: Camera) : JPanel() {
 
     private val grass: Image
@@ -37,7 +38,7 @@ class TestRenderer(private val camera: Camera) : JPanel() {
         )
     }
 
-    val testCart: InterpolatedCart = InterpolatedCart(Cart(Coordinates(2, 1), East, JunctionState.Left))
+    val testCart: InterpolatedCart = InterpolatedCart(Cart(0, Coordinates(2, 1), East, JunctionState.Left))
 
     var lastTick = System.nanoTime() / 1e9
     val tickSpeed = 600e-3

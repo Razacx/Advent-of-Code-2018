@@ -1,6 +1,7 @@
 package day13.parse
 
 import day06.Coordinates
+import day11.width
 import day13.model.Cart
 import day13.model.Direction.*
 import day13.model.JunctionState.Left
@@ -90,6 +91,17 @@ class ParsingKtTest {
     }
 
     @Test
+    fun test_parseTracks_usesLargestLineAsWidth() {
+        val input = listOf(
+                """/---\""",
+                """|   \--\""",
+                """\------/"""
+        )
+        val grid = parseTracks(input)
+        assertEquals(8, grid.width())
+    }
+
+    @Test
     fun test_parseTracks_full() {
         val input = listOf(
                 """/->-\        """,
@@ -125,10 +137,10 @@ class ParsingKtTest {
                 """  \------/   """
         )
         val expectedCarts = listOf(
-                Cart(Coordinates(2, 0), East, Left),
-                Cart(Coordinates(5, 2), West, Left),
-                Cart(Coordinates(12, 2), North, Left),
-                Cart(Coordinates(9, 3), South, Left)
+                Cart(0, Coordinates(2, 0), East, Left),
+                Cart(1, Coordinates(5, 2), West, Left),
+                Cart(2, Coordinates(12, 2), North, Left),
+                Cart(3, Coordinates(9, 3), South, Left)
         )
 
         val carts = parseCarts(input)

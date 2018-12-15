@@ -6,7 +6,13 @@ import day11.createGrid2D
 import day11.height
 import day11.width
 import day13.model.Track.*
+import day13.parse.parseCarts
+import day13.parse.parseTracks
 import org.junit.Test
+import java.io.BufferedReader
+import java.io.FileReader
+import java.lang.IllegalStateException
+import java.util.stream.Collectors
 import kotlin.test.assertEquals
 
 // These are kinda 'integration' tests
@@ -19,7 +25,7 @@ class WorldTest {
                 arrayOf(Vertical, None, Vertical),
                 arrayOf(MainDiagonal, Horizontal, AntiDiagonal)
         ).transpose()
-        val carts = listOf(Cart(Coordinates(1, 0), Direction.East, JunctionState.Left))
+        val carts = listOf(Cart(0, Coordinates(1, 0), Direction.East, JunctionState.Left))
 
         val world = World(grid2D, carts)
 
@@ -48,7 +54,7 @@ class WorldTest {
                 arrayOf(Vertical, None, Vertical),
                 arrayOf(MainDiagonal, Horizontal, AntiDiagonal)
         ).transpose()
-        val carts = listOf(Cart(Coordinates(1, 0), Direction.West, JunctionState.Left))
+        val carts = listOf(Cart(0, Coordinates(1, 0), Direction.West, JunctionState.Left))
 
         val world = World(grid2D, carts)
 
@@ -76,7 +82,7 @@ class WorldTest {
                 arrayOf(Intersection,   Intersection,   Intersection,   None),
                 arrayOf(None,           None,           Intersection,   None)
         ).transpose()
-        val carts = listOf(Cart(Coordinates(0, 0), Direction.South, JunctionState.Left))
+        val carts = listOf(Cart(0, Coordinates(0, 0), Direction.South, JunctionState.Left))
 
         val world = World(grid2D, carts)
 
@@ -91,6 +97,26 @@ class WorldTest {
         assertEquals(Direction.East, world.carts[0].direction)
         assertEquals(JunctionState.Straight, world.carts[0].junctionState)
     }
+
+    @Test
+    fun crashes() {
+        val lines = BufferedReader(FileReader("input/day13/test-tracks.txt"))
+                .lines()
+                .collect(Collectors.toList())
+        val world = World(parseTracks(lines), parseCarts(lines))
+
+        var iterations = 0
+        while (world.crashes.isEmpty()) {
+            world.moveCarts()
+            iterations++
+            if(iterations == 500) {
+                throw IllegalStateException("Test failed, too many iterations required")
+            }
+        }
+
+        assertEquals(Crash(Coordinates(7, 3)), world.crashes[0])
+    }
+
 }
 
 inline fun <reified K> Grid2D<K>.transpose(): Grid2D<K> {

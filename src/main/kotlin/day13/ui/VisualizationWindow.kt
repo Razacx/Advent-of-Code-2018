@@ -1,19 +1,30 @@
 package day13.ui
 
-import java.awt.*
+import day13.model.World
+import day13.parse.parseCarts
+import day13.parse.parseTracks
+import java.awt.BorderLayout
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
+import java.io.BufferedReader
+import java.io.FileReader
+import java.util.stream.Collectors
 import javax.swing.JFrame
 import javax.swing.Timer
 
 fun main(vararg args: String) {
-    VisualizationWindow()
+    val lines = BufferedReader(FileReader("input/day13/test-tracks.txt"))
+            .lines()
+            .collect(Collectors.toList())
+
+    val world = World(parseTracks(lines), parseCarts(lines))
+
+    VisualizationWindow(world)
 }
 
-class VisualizationWindow : JFrame("Track visualisation") {
+class VisualizationWindow(world: World) : JFrame("Track visualisation") {
 
     private val camera: Camera
-    private val testRenderer: TestRenderer
 
     init {
         // JFrame setup
@@ -23,9 +34,12 @@ class VisualizationWindow : JFrame("Track visualisation") {
         // Create camera
         camera = Camera(64.0, 0.0, 0.0)
 
+        // Create ticker
+        val ticker = Ticker(200e-3) { world.moveCarts() }
+
         // Create rendering surfaces
-        testRenderer = TestRenderer(camera)
-        add(testRenderer, BorderLayout.CENTER)
+        val renderer = Renderer(camera, world, ticker)
+        add(renderer, BorderLayout.CENTER)
 
         // Add interaction functionality
         val cameraPanner = CameraPannerMouseMotionListener(camera)
@@ -40,10 +54,11 @@ class VisualizationWindow : JFrame("Track visualisation") {
 
         // Start render loop
         val renderLoop = Timer(1000 / 144) {
-            testRenderer.repaint()
+            ticker.tryTick()
+            renderer.repaint()
         }
         renderLoop.start()
-        addWindowListener(object: WindowAdapter() {
+        addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
                 super.windowClosing(e)
                 renderLoop.stop()

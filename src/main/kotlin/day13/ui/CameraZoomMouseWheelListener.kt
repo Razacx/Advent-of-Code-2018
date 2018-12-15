@@ -10,7 +10,7 @@ class CameraZoomMouseWheelListener(private val camera: Camera): MouseWheelListen
     override fun mouseWheelMoved(e: MouseWheelEvent?) {
         val delta = e!!.wheelRotation * 5
         val cursorWorldPos = camera.screenToWorldCoordinates(Coordinates(e.x, e.y))
-        camera.zoom = clamp(10.0, 200.0, camera.zoom - delta)
+        camera.zoom = clamp(8.0, 200.0, camera.zoom - delta)
 
         val newScreenCoordinates = camera.worldToScreenCoordinates(cursorWorldPos)
         camera.offsetX += (newScreenCoordinates.x - e.x) / camera.zoom
