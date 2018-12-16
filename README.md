@@ -121,4 +121,7 @@ _For part 2, it was pretty obvious that the simulation would go into a predictab
 _For some reason it seemed like fun to make a full visualisation for this. So I made a Swing application that renders everything :)_  
 _Took quite some time though._  
 
-_The logic for the problem itself turned out to be pretty simple_
+_The logic for the problem itself turned out to be pretty simple_  
+
+<img src="./img/day13-vis.png" style="width: 200px">
+<img src="./img/day13-vis-2.png" style="width: 400px">
