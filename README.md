@@ -116,6 +116,9 @@ _The problem description is worded too hard_
 _Looks a lot like game of life (in one dimension)_  
 _For part 2, it was pretty obvious that the simulation would go into a predictable (looping) state (as this is also the case for game of life)_
 
-### _13/12 ()_
+### _13/12 (~5h)_
 
-_f_
+_For some reason it seemed like fun to make a full visualisation for this. So I made a Swing application that renders everything :)_  
+_Took quite some time though._  
+
+_The logic for the problem itself turned out to be pretty simple_
