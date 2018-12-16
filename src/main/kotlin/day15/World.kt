@@ -8,25 +8,13 @@ import day11.width
 import day15.CollisionType.NotWalkable
 import day15.CollisionType.Walkable
 import day15.TileType.Floor
+import java.lang.IllegalArgumentException
 
-class World(val grid: Grid2D<TileType>, initialEntities: List<Entity>) {
+class World(val grid: Grid2D<TileType>) {
 
-    private val _entities: MutableList<Entity> = initialEntities.toMutableList()
-    val entities get() = _entities
+    val entities: MutableList<Entity> = mutableListOf()
 
 }
 
-fun mapToCollisionGrid(grid: Grid2D<TileType>, entities: List<Entity>): Grid2D<CollisionType> {
-    val collisionGrid = createGrid2D(grid.width(), grid.height(), NotWalkable)
 
-    for (x in 0 until collisionGrid.width()) {
-        for (y in 0 until collisionGrid.height()) {
-            val coordinates = Coordinates(x, y)
-            if (grid[x][y] == Floor && entities.find { it.position == coordinates } == null) {
-                collisionGrid[x][y] = Walkable
-            }
-        }
-    }
 
-    return collisionGrid
-}

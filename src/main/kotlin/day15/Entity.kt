@@ -16,15 +16,18 @@ abstract class Entity(val id: Int, private val world: World, private var _positi
 
     abstract fun getIsEnemyPredicate(): (Entity) -> Boolean
 
-    // TODO Write test
     fun findTargetInRange(): Entity? {
-
         // Keep all possible enemies
         val enemies = world.entities.filter(getIsEnemyPredicate())
         val inRangeEnemies = enemies.filter { isDirectNeighbour(position, it.position) }
 
         // Sort by reading order
-        val sortedInRangeEnemies = inRangeEnemies.sortedBy { ReadingOrderCoordinatesComparator().compare(position, it.position) }
+        val sortedInRangeEnemies = inRangeEnemies
+                .sortedWith(
+                        Comparator { e1, e2 ->
+                            ReadingOrderCoordinatesComparator().compare(e1.position, e2.position)
+                        }
+                )
 
         return if (!sortedInRangeEnemies.isEmpty()) {
             sortedInRangeEnemies.first()
@@ -36,15 +39,14 @@ abstract class Entity(val id: Int, private val world: World, private var _positi
     // TODO Write test
     fun move() {
         val enemies = world.entities.filter(getIsEnemyPredicate())
-        val nextStep = findNextStep(mapToCollisionGrid(world.grid, world.entities), position) { coordinates ->
+        val nextStep = findNextStep(worldToCollisionGrid(world.grid, world.entities), position) { coordinates ->
             enemies.any { enemy -> isDirectNeighbour(enemy.position, coordinates) }
         }
-        if(nextStep != null) {
+        if (nextStep != null) {
             _position = nextStep
         }
     }
 
-    // TODO Write test
     fun attack() {
         findTargetInRange()?.damage(ap)
     }
@@ -67,9 +69,7 @@ class Elf(id: Int, world: World, position: Coordinates, _ap: Int, _hp: Int) : En
 
 }
 
-// TODO Write test
 fun isDirectNeighbour(coordinates1: Coordinates, coordinates2: Coordinates): Boolean {
-    // Is it really that simple?
     return coordinates1.manhattanDistance(coordinates2) == 1
 }
 
