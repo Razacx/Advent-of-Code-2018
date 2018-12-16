@@ -127,7 +127,7 @@ _The logic for the problem itself turned out to be pretty simple_
 <img src="./img/day13-vis.png" style="width: 200px">
 <img src="./img/day13-vis2.png" style="width: 400px">
 
-### _14/12 (~1h 30m)_
+### _14/12 (~1h)_
 
 _Part 1 was very easy_  
 _In part 2 it took me way to long to figure out that the tailing score can also occur when in the middle of adding digits to the recipe list_  
