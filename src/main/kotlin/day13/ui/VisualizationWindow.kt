@@ -12,17 +12,7 @@ import java.util.stream.Collectors
 import javax.swing.JFrame
 import javax.swing.Timer
 
-fun main(vararg args: String) {
-    val lines = BufferedReader(FileReader("input/day13/test-tracks.txt"))
-            .lines()
-            .collect(Collectors.toList())
-
-    val world = World(parseTracks(lines), parseCarts(lines))
-
-    VisualizationWindow(world)
-}
-
-class VisualizationWindow(world: World) : JFrame("Track visualisation") {
+class VisualizationWindow(world: World, tickSpeedInSeconds: Double, fpsLimit: Int) : JFrame("Track visualisation") {
 
     private val camera: Camera
 
@@ -35,7 +25,7 @@ class VisualizationWindow(world: World) : JFrame("Track visualisation") {
         camera = Camera(64.0, 0.0, 0.0)
 
         // Create ticker
-        val ticker = Ticker(200e-3) { world.moveCarts() }
+        val ticker = Ticker(tickSpeedInSeconds) { world.moveCarts() }
 
         // Create rendering surfaces
         val renderer = Renderer(camera, world, ticker)
@@ -53,7 +43,7 @@ class VisualizationWindow(world: World) : JFrame("Track visualisation") {
         isVisible = true
 
         // Start render loop
-        val renderLoop = Timer(1000 / 144) {
+        val renderLoop = Timer(1000 / fpsLimit) {
             ticker.tryTick()
             renderer.repaint()
         }

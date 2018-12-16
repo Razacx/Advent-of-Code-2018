@@ -11,8 +11,7 @@ class World(val tracks: Grid2D<Track>, initialCarts: List<Cart>) {
     val crashes: List<Crash> get() = _crashes
 
     fun moveCarts() {
-        // We are going to be removing carts when crashing, so we need to make a copy of the carts list here...
-        for (cart in _carts.toList()) {
+        for (cart in getCartsInExecutionOrder()) {
 
             tracks[cart.position.x][cart.position.y].move(cart)
 
@@ -24,6 +23,18 @@ class World(val tracks: Grid2D<Track>, initialCarts: List<Cart>) {
             }
 
         }
+    }
+
+    fun getCartsInExecutionOrder(): List<Cart> {
+        return _carts.toList().sortedWith(Comparator { cart1, cart2 ->
+            if (cart1.position.y != cart2.position.y) {
+                cart1.position.y - cart2.position.y
+            } else if (cart1.position.x != cart2.position.x) {
+                cart1.position.x - cart2.position.x
+            } else {
+                0
+            }
+        })
     }
 
     fun findOverlappingCarts(): List<List<InterpolatedCart>> {

@@ -5,15 +5,17 @@ import day11.Grid2D
 import day11.createGrid2D
 import day11.height
 import day11.width
+import day13.model.Direction.North
+import day13.model.JunctionState.Left
 import day13.model.Track.*
 import day13.parse.parseCarts
 import day13.parse.parseTracks
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.FileReader
-import java.lang.IllegalStateException
 import java.util.stream.Collectors
 import kotlin.test.assertEquals
+import kotlin.test.expect
 
 // These are kinda 'integration' tests
 class WorldTest {
@@ -25,7 +27,7 @@ class WorldTest {
                 arrayOf(Vertical, None, Vertical),
                 arrayOf(MainDiagonal, Horizontal, AntiDiagonal)
         ).transpose()
-        val carts = listOf(Cart(0, Coordinates(1, 0), Direction.East, JunctionState.Left))
+        val carts = listOf(Cart(0, Coordinates(1, 0), Direction.East, Left))
 
         val world = World(grid2D, carts)
 
@@ -54,7 +56,7 @@ class WorldTest {
                 arrayOf(Vertical, None, Vertical),
                 arrayOf(MainDiagonal, Horizontal, AntiDiagonal)
         ).transpose()
-        val carts = listOf(Cart(0, Coordinates(1, 0), Direction.West, JunctionState.Left))
+        val carts = listOf(Cart(0, Coordinates(1, 0), Direction.West, Left))
 
         val world = World(grid2D, carts)
 
@@ -79,10 +81,10 @@ class WorldTest {
     @Test
     fun junctions() {
         val grid2D: Grid2D<Track> = arrayOf(
-                arrayOf(Intersection,   Intersection,   Intersection,   None),
-                arrayOf(None,           None,           Intersection,   None)
+                arrayOf(Intersection, Intersection, Intersection, None),
+                arrayOf(None, None, Intersection, None)
         ).transpose()
-        val carts = listOf(Cart(0, Coordinates(0, 0), Direction.South, JunctionState.Left))
+        val carts = listOf(Cart(0, Coordinates(0, 0), Direction.South, Left))
 
         val world = World(grid2D, carts)
 
@@ -109,12 +111,27 @@ class WorldTest {
         while (world.crashes.isEmpty()) {
             world.moveCarts()
             iterations++
-            if(iterations == 500) {
+            if (iterations == 500) {
                 throw IllegalStateException("Test failed, too many iterations required")
             }
         }
 
         assertEquals(Crash(Coordinates(7, 3)), world.crashes[0])
+    }
+
+    @Test
+    fun cartExecutionOrder() {
+        val carts = listOf(
+                Cart(0, Coordinates(2, 2), North, Left),
+                Cart(1, Coordinates(2, 1), North, Left),
+                Cart(2, Coordinates(1, 1), North, Left)
+        )
+        val world = World(createGrid2D(5, 5, None), carts)
+
+        val sortedCarts = world.getCartsInExecutionOrder()
+        assertEquals(carts[2].id, sortedCarts[0].id)
+        assertEquals(carts[1].id, sortedCarts[1].id)
+        assertEquals(carts[0].id, sortedCarts[2].id)
     }
 
 }

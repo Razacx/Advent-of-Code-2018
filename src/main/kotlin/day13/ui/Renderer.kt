@@ -32,6 +32,7 @@ class Renderer(
         // Render
         drawGrass(g2d)
         drawTracks(g2d)
+        drawCrashes(g2d)
         drawCarts(g2d)
         drawFps(g2d)
     }
@@ -91,7 +92,7 @@ class Renderer(
                 }
             }
             AntiDiagonal -> {
-                val leftTrack = if(coordinates.x > 0 ) tracks[coordinates.x - 1][coordinates.y] else null
+                val leftTrack = if (coordinates.x > 0) tracks[coordinates.x - 1][coordinates.y] else null
                 if (leftTrack != null && (leftTrack == Horizontal || leftTrack == Intersection)) {
                     Math.toRadians(180.0)
                 } else {
@@ -99,6 +100,13 @@ class Renderer(
                 }
             }
             else -> Math.toRadians(0.0)
+        }
+    }
+
+    private fun drawCrashes(g2d: Graphics2D) {
+        for (crash in world.crashes) {
+            val screenCoordinates = camera.worldToScreenCoordinates(crash.coordinates.toDoubleCoordinates())
+            g2d.drawImage(sprites.crash, screenCoordinates.x, screenCoordinates.y, camera.zoom.toInt(), camera.zoom.toInt(), null)
         }
     }
 
