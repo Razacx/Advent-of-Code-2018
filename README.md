@@ -124,4 +124,4 @@ _Took quite some time though._
 _The logic for the problem itself turned out to be pretty simple_  
 
 <img src="./img/day13-vis.png" style="width: 200px">
-<img src="./img/day13-vis-2.png" style="width: 400px">
+<img src="./img/day13-vis2.png" style="width: 400px">
