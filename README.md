@@ -119,7 +119,8 @@ _For part 2, it was pretty obvious that the simulation would go into a predictab
 ### _13/12 (~5h)_
 
 _For some reason it seemed like fun to make a full visualisation for this. So I made a Swing application that renders everything :)_  
-_Took quite some time though._  
+_I also created all the sprites myself using Photoshop (easily spent 2 hours on this)_  
+_All in all, the entire project took a lot of time :p_  
 
 _The logic for the problem itself turned out to be pretty simple_  
 
