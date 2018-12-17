@@ -132,3 +132,12 @@ _The logic for the problem itself turned out to be pretty simple_
 _Part 1 was very easy_  
 _In part 2 it took me way to long to figure out that the tailing score can also occur when in the middle of adding digits to the recipe list_  
 _Honestly, I didn't like that catch. Felt like it wasn't clear enough from the problem description_
+
+### _15/12 (~4h)_
+
+_Whew._  
+_Path-finding was certainly the hardest part of this exercise_  
+_I was planning to make a UI for this like I did for day 13, but I honestly don't want to touch this anymore_  
+
+_The problem was taking me too long, so I just tried to hack together a solution_  
+_As a result, the code is an absolute mess now_
