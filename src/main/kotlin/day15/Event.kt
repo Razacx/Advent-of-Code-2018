@@ -2,9 +2,9 @@ package day15
 
 class Event<T> {
 
-    private val handlers = mutableListOf<(T) -> Entity>()
+    private val handlers = mutableListOf<(T) -> Unit>()
 
-    operator fun plusAssign(handler: (T) -> Entity) {
+    operator fun plusAssign(handler: (T) -> Unit) {
         handlers.add(handler)
     }
 

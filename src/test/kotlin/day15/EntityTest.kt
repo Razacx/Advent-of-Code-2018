@@ -6,6 +6,7 @@ import day15.TileType.Floor
 import org.junit.Test
 
 import org.junit.Assert.*
+import parseWorld
 
 class EntityTest {
 
@@ -58,11 +59,49 @@ class EntityTest {
         assertEquals(goblin, target)
     }
 
+
     @Test
-    fun move() {
+    fun move_one_enemy() {
+        val world = parseWorld(listOf(
+                ".....",
+                ".G.E.",
+                "....."
+        ))
 
+        val goblin = world.entities[0]
+        assertTrue(goblin is Goblin)
 
-
+        goblin.move()
+        assertEquals(Coordinates(2, 1), goblin.position)
     }
 
+    @Test
+    fun move_first_reading_order() {
+        val world = parseWorld(listOf(
+                "E....",
+                ".G.E.",
+                "....."
+        ))
+
+        val goblin = world.entities[1]
+        assertTrue(goblin is Goblin)
+
+        goblin.move()
+        assertEquals(Coordinates(1, 0), goblin.position)
+    }
+
+    @Test
+    fun move_first_closest() {
+        val world = parseWorld(listOf(
+                "E....",
+                "..G.E",
+                "....."
+        ))
+
+        val goblin = world.entities[1]
+        assertTrue(goblin is Goblin)
+
+        goblin.move()
+        assertEquals(Coordinates(3, 1), goblin.position)
+    }
 }

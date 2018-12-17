@@ -21,11 +21,16 @@ abstract class Entity(val id: Int, private val world: World, private var _positi
         val enemies = world.entities.filter(getIsEnemyPredicate())
         val inRangeEnemies = enemies.filter { isDirectNeighbour(position, it.position) }
 
-        // Sort by reading order
+        // Sort by lowest health and then reading order
         val sortedInRangeEnemies = inRangeEnemies
                 .sortedWith(
                         Comparator { e1, e2 ->
-                            ReadingOrderCoordinatesComparator().compare(e1.position, e2.position)
+                            val healthComparison = e1.hp.compareTo(e2.hp)
+                            if(healthComparison != 0) {
+                                healthComparison
+                            } else {
+                                ReadingOrderCoordinatesComparator().compare(e1.position, e2.position)
+                            }
                         }
                 )
 

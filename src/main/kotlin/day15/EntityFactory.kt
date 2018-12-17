@@ -12,6 +12,9 @@ class EntityFactory(val world: World) {
             else -> throw IllegalArgumentException("Unable to create Entity of type ${K::class.simpleName}")
         }
         world.entities.add(entity)
+
+        entity.onDeath += { world.entities.remove(it) } // Remove entity when it dies
+
         return entity
     }
 

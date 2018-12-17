@@ -1,17 +1,14 @@
 import day06.Coordinates
 import day11.createGrid2D
-import day15.Entity
-import day15.EntityFactory
-import day15.Goblin
+import day15.*
 import day15.TileType.Floor
 import day15.TileType.Wall
-import day15.World
 import java.lang.IllegalArgumentException
 import kotlin.String
 
-fun parseWorld(lines: List<String>): World {
+fun parseWorld(lines: List<String>, elfAp: Int = 3): World {
     val world = parseMap(lines)
-    parseEntities(world, lines)
+    parseEntities(world, lines, elfAp)
     return world
 }
 
@@ -35,7 +32,7 @@ fun parseMap(lines: List<String>): World {
     return World(grid)
 }
 
-fun parseEntities(world: World, lines: List<String>) {
+fun parseEntities(world: World, lines: List<String>, elfAp: Int) {
     val entities = mutableListOf<Entity>()
     val entityFactory = EntityFactory(world)
 
@@ -45,7 +42,7 @@ fun parseEntities(world: World, lines: List<String>) {
             val position = Coordinates(x, y)
             when(chars[x]) {
                 'G' -> entityFactory.createEntity<Goblin>(entities.size, position, 3, 200)
-                'E' -> entityFactory.createEntity<Goblin>(entities.size, position, 3, 200)
+                'E' -> entityFactory.createEntity<Elf>(entities.size, position, elfAp, 200)
             }
         }
     }

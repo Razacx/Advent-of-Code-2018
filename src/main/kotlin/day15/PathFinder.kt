@@ -8,7 +8,7 @@ import day11.height
 import day11.width
 import day13.model.Direction
 import day13.model.plus
-import day15.CollisionType.Walkable
+import java.util.*
 
 fun worldToCollisionGrid(grid: Grid2D<TileType>, entities: List<Entity>): Grid2D<CollisionType> {
     val collisionGrid = createGrid2D(grid.width(), grid.height(), CollisionType.NotWalkable)
@@ -26,56 +26,121 @@ fun worldToCollisionGrid(grid: Grid2D<TileType>, entities: List<Entity>): Grid2D
 }
 
 fun findNextStep(collisionGrid: Grid2D<CollisionType>, from: Coordinates, predicate: (Coordinates) -> Boolean): Coordinates? {
-    val path = findPath(collisionGrid, predicate, listOf(from))
-    return if (path.isEmpty()) {
-        null
+
+//    if(predicate(from)) return null // Small optimization
+
+    val shortestPath = startFindPath(collisionGrid, from, predicate) ?: return null
+
+    return if (shortestPath.size > 1) {
+        shortestPath[1]
     } else {
-        path.first()
+        shortestPath.first()
     }
+
 }
 
-// TODO Write test for this
-// Do a breadth first search for tiles where predicate matches. If multiple equally sized paths are found, return the one with end-destination at lowest y-x coordinate
-fun findPath(collisionGrid: Grid2D<CollisionType>, predicate: (Coordinates) -> Boolean, path: List<Coordinates>): List<Coordinates> {
-    val currentCoordinates = path.last()
+fun startFindPath(collisionGrid: Grid2D<CollisionType>, from: Coordinates, predicate: (Coordinates) -> Boolean): List<Coordinates>? {
 
-    // Return if we are currently on a tile that matches our rules
-    if (predicate(currentCoordinates)) {
-        // Might need to refine this if this is the first call (?)
-        return path
+    var possibleEndTiles = getPossibleEndTiles(collisionGrid, predicate)
+    if(predicate(from)) possibleEndTiles += listOf(from)
+
+    // Find all possible paths to 'a' end tile
+    val paths = mutableListOf<List<Coordinates>?>()
+    for (tile in possibleEndTiles) {
+        paths.add(findPath(collisionGrid, from, tile))
     }
 
-    val bounds = collisionGrid.bounds()
-    val newWalkableNeighbors = getNeighbours(currentCoordinates)
-            .filter { it !in path } // Remove tiles we've previously traversed
-            .filter { bounds.isInBounds(it) } // Remove out of bounds neighbours
-            .filter { collisionGrid[it.x][it.y] == Walkable } // Remove not walkable tiles
 
-    // This path found nothing
-    if(newWalkableNeighbors.isEmpty()) {
-        return path
+    // Remove unresolved paths
+    val resolvedPaths = paths.filter { it != null }.map { it!! }
+
+    // If no paths left, return
+    if (resolvedPaths.isEmpty()) {
+        return null
     }
 
-    val paths = newWalkableNeighbors.map {
-        // Recursively find path for each neighbour
-        findPath(collisionGrid, predicate, path + listOf(it))
-    }.sortedWith(Comparator { p1, p2 ->
-        if (p1.size != p2.size) { // Get shortest path
-            p1.size - p2.size
-        } else { // Get first by reading order of final tile if duplicates
-            ReadingOrderCoordinatesComparator().compare(p1.last(), p2.last())
+    // Get shortest path(s)
+    val shortestPathsGroup = resolvedPaths.groupBy { it.size }.minBy { it.key }!!
+
+    // If multiple paths remain, sort them by 'reading order of end position', then 'reading order of next step' and return the first one
+    val shortestPath = shortestPathsGroup.value
+            .sortedWith(compareBy(
+                    { it.last().y },
+                    { it.last().x },
+                    { it[1].y },
+                    { it[1].x }
+            )).first()
+
+    return shortestPath
+
+}
+
+//Find all tiles that match predicate
+private fun getPossibleEndTiles(collisionGrid: Grid2D<CollisionType>, predicate: (Coordinates) -> Boolean): List<Coordinates> {
+    val possibleEndTiles = mutableListOf<Coordinates>()
+    for (x in 0 until collisionGrid.width()) {
+        for (y in 0 until collisionGrid.width()) {
+            val position = Coordinates(x, y)
+            if (collisionGrid[x][y] == CollisionType.Walkable && predicate(position)) {
+                possibleEndTiles.add(position)
+            }
         }
-    })
-
-    return paths.first()
+    }
+    return possibleEndTiles
 }
 
+fun findPath(collisionGrid: Grid2D<CollisionType>, from: Coordinates, end: Coordinates): List<Coordinates>? {
+
+    // First param is visited node, second is previous node
+    val visitedFrom = mutableMapOf<Coordinates, Coordinates>()
+
+    val visitNextQueue = LinkedList<Coordinates>(listOf(from))
+
+    while (!visitNextQueue.isEmpty()) {
+
+        val tile = visitNextQueue.removeAt(0)
+
+        if (tile == end) {
+            return buildMapFromVisitedMap(visitedFrom, end)
+        }
+
+        val tileNeighbours = getNeighbours(tile)
+        for (neighbour in tileNeighbours) {
+            if (collisionGrid[neighbour.x][neighbour.y] == CollisionType.Walkable && !visitedFrom.containsKey(neighbour)) {
+                visitedFrom[neighbour] = tile
+                visitNextQueue.add(neighbour)
+            }
+        }
+
+    }
+
+    // No path found
+    return null
+
+}
+
+fun buildMapFromVisitedMap(visitedFrom: Map<Coordinates, Coordinates>, end: Coordinates): List<Coordinates> {
+
+    val reversedPath = mutableListOf(end)
+
+    var currentPosition = end
+    while (visitedFrom.containsKey(currentPosition)) {
+        val from = visitedFrom[currentPosition]!!
+        reversedPath.add(from)
+        currentPosition = from
+    }
+
+    return reversedPath.reversed()
+
+}
+
+// The order here is very important...
 fun getNeighbours(coordinates: Coordinates): List<Coordinates> {
     return listOf(
             coordinates + Direction.North.vector,
-            coordinates + Direction.South.vector,
             coordinates + Direction.West.vector,
-            coordinates + Direction.East.vector
+            coordinates + Direction.East.vector,
+            coordinates + Direction.South.vector
     )
 }
 
