@@ -58,5 +58,11 @@ class EntityTest {
         assertEquals(goblin, target)
     }
 
+    @Test
+    fun move() {
+
+
+
+    }
 
 }
