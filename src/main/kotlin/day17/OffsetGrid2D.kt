@@ -5,6 +5,7 @@ import day11.Grid2D
 import day11.createGrid2D
 import day11.height
 import day11.width
+import java.lang.StringBuilder
 
 class OffsetGrid2D<K>(val x: Int, val y: Int, val grid: Grid2D<K>) {
 
@@ -51,7 +52,7 @@ inline fun <reified K> createOffsetGrid2D(bounds: Bounds, defaultValue: K): Offs
     return createOffsetGrid2D(bounds.minX, bounds.minY, bounds.width(), bounds.height(), defaultValue)
 }
 
-fun <K> Grid2D<K>.render(valueConverter: (K) -> String): List<String> {
+fun <K> Grid2D<K>.render(valueConverter: (K) -> String): String {
     val lines = mutableListOf<String>()
 
     for(y in 0 until height()) {
@@ -62,5 +63,5 @@ fun <K> Grid2D<K>.render(valueConverter: (K) -> String): List<String> {
         lines.add(line)
     }
 
-    return lines
+    return lines.joinTo(StringBuilder(), "\n").toString()
 }

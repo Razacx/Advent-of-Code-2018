@@ -6,7 +6,6 @@ import day17.SoilType.CLAY
 import day17.SoilType.SAND
 import java.io.BufferedReader
 import java.io.FileReader
-import java.lang.StringBuilder
 import java.util.stream.Collectors
 
 fun main(vararg args: String) {
@@ -19,13 +18,14 @@ fun main(vararg args: String) {
 
     val grid = createVeinsGrid(veins)
 
-    val render = grid.grid.render {
-        when (it) {
-            CLAY -> "\u001b[37m#"
-            SAND -> "\u001b[30m."
-        }
-    }.joinTo(StringBuilder(), "\n")
-    println(render)
+    println(
+            grid.grid.render {
+                when (it) {
+                    CLAY -> "\u001b[37m#"
+                    SAND -> "\u001b[30m."
+                }
+            }
+    )
 
 }
 
