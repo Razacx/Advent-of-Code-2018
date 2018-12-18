@@ -4,6 +4,8 @@ data class IdentifiedCoordinates(val id: Int, val coordinates: Coordinates)
 
 data class Coordinates(val x: Int, val y: Int) {
 
+    companion object
+
     fun manhattanDistance(other: Coordinates): Int {
         return Math.abs(x - other.x) + Math.abs(y - other.y)
     }
