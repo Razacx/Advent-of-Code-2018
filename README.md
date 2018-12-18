@@ -141,3 +141,7 @@ _I was planning to make a UI for this like I did for day 13, but I honestly don'
 
 _The problem was taking me too long, so I just tried to hack together a solution_  
 _As a result, the code is an absolute mess now_
+
+### _16/12 (~1h 30m)_
+
+_Was very fun to work out :)_
