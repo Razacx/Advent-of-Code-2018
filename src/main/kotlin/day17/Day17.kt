@@ -2,8 +2,7 @@ package day17
 
 import day06.Bounds
 import day06.Coordinates
-import day17.SoilType.CLAY
-import day17.SoilType.SAND
+import day17.SoilType.*
 import java.io.BufferedReader
 import java.io.FileReader
 import java.util.stream.Collectors
@@ -17,15 +16,19 @@ fun main(vararg args: String) {
     )
 
     val grid = createVeinsGrid(veins)
+    grid[500][0] = WATER_FLOWING
 
     println(
             grid.grid.render {
                 when (it) {
                     CLAY -> "\u001b[37m#"
                     SAND -> "\u001b[30m."
+                    WATER_FLOWING -> "\u001b[34;1m|"
+                    WATER_STILL -> "\u001b[34;1m~"
                 }
             }
     )
+
 
 }
 
@@ -58,6 +61,8 @@ fun createVeinsGrid(veins: List<Coordinates>): OffsetGrid2D<SoilType> {
 enum class SoilType {
 
     CLAY,
-    SAND
+    SAND,
+    WATER_FLOWING,
+    WATER_STILL
 
 }
