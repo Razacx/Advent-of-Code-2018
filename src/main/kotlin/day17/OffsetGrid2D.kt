@@ -5,11 +5,10 @@ import day11.Grid2D
 import day11.createGrid2D
 import day11.height
 import day11.width
-import java.lang.StringBuilder
 
-class OffsetGrid2D<K>(val x: Int, val y: Int, val grid: Grid2D<K>) {
+open class OffsetGrid2D<K>(val x: Int, val y: Int, val grid: Grid2D<K>) {
 
-    operator fun get(x: Int): OffsetGrid2DColumn<K> {
+    open operator fun get(x: Int): OffsetGrid2DColumn<K> {
         return OffsetGrid2DColumn(this, x)
     }
 
@@ -21,9 +20,13 @@ class OffsetGrid2D<K>(val x: Int, val y: Int, val grid: Grid2D<K>) {
         return grid.height()
     }
 
+    fun bounds(): Bounds {
+        return Bounds.invoke(x, y, x + width(), y + height())
+    }
+
 }
 
-class OffsetGrid2DColumn<K>(private val offsetGrid2D: OffsetGrid2D<K>, private val x: Int) {
+open class OffsetGrid2DColumn<K>(protected val offsetGrid2D: OffsetGrid2D<K>, protected val x: Int) {
 
     operator fun get(y: Int): K {
         val grid = offsetGrid2D.grid
@@ -33,7 +36,7 @@ class OffsetGrid2DColumn<K>(private val offsetGrid2D: OffsetGrid2D<K>, private v
         return grid[x - xOffset][y - yOffset]
     }
 
-    operator fun set(y: Int, value: K) {
+    open operator fun set(y: Int, value: K) {
         val grid = offsetGrid2D.grid
         val xOffset = offsetGrid2D.x
         val yOffset = offsetGrid2D.y
@@ -55,7 +58,7 @@ inline fun <reified K> createOffsetGrid2D(bounds: Bounds, defaultValue: K): Offs
 fun <K> Grid2D<K>.render(valueConverter: (K) -> String): String {
     val lines = mutableListOf<String>()
 
-    for(y in 0 until height()) {
+    for (y in 0 until height()) {
         var line = ""
         for (x in 0 until width()) {
             line += valueConverter(this[x][y])

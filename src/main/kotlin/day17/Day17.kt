@@ -18,21 +18,36 @@ fun main(vararg args: String) {
     val grid = createVeinsGrid(veins)
     grid[500][0] = WATER_FLOWING
 
-    println(
-            grid.grid.render {
-                when (it) {
-                    CLAY -> "\u001b[37m#"
-                    SAND -> "\u001b[30m."
-                    WATER_FLOWING -> "\u001b[34;1m|"
-                    WATER_STILL -> "\u001b[34;1m~"
-                }
-            }
-    )
+//    println(
+//            grid.grid.render {
+//                when (it) {
+//                    CLAY -> "\u001b[37m#"
+//                    SAND -> "\u001b[30m."
+//                    WATER_FLOWING -> "\u001b[34;1m|"
+//                    WATER_STILL -> "\u001b[34;1m~"
+//                }
+//            }
+//    )
 
+    loop(grid)
 
 }
 
-fun createVeinsGrid(veins: List<Coordinates>): OffsetGrid2D<SoilType> {
+fun loop(grid: TileUpdateOffsetGrid2D<SoilType>) {
+    while (!grid.tilesToUpdate.isEmpty()) {
+        tick(grid)
+    }
+}
+
+fun tick(grid: TileUpdateOffsetGrid2D<SoilType>) {
+    for(tile in grid.getAndResetTilesToUpdate()) {
+
+        // Apply local rules
+
+    }
+}
+
+fun createVeinsGrid(veins: List<Coordinates>): TileUpdateOffsetGrid2D<SoilType> {
     val minX = veins.minBy { it.x }!!.x
     val maxX = veins.maxBy { it.x }!!.x
     val minY = 0
@@ -44,7 +59,7 @@ fun createVeinsGrid(veins: List<Coordinates>): OffsetGrid2D<SoilType> {
             if (maxX < 500) 500 else maxX,
             maxY
     )
-    val grid = createOffsetGrid2D(gridBounds, SAND)
+    val grid = createTileUpdateOffsetGrid2D(gridBounds, SAND)
 
     for (x in grid.x until grid.x + grid.width()) {
         for (y in grid.y until grid.y + grid.height()) {
@@ -54,6 +69,7 @@ fun createVeinsGrid(veins: List<Coordinates>): OffsetGrid2D<SoilType> {
             }
         }
     }
+    grid.resetTilesToUpdate()
 
     return grid
 }
