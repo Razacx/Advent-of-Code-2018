@@ -21,7 +21,7 @@ open class OffsetGrid2D<K>(val x: Int, val y: Int, val grid: Grid2D<K>) {
     }
 
     fun bounds(): Bounds {
-        return Bounds.invoke(x, y, x + width(), y + height())
+        return Bounds.invoke(x, y, x + width() - 1, y + height() - 1)
     }
 
 }

@@ -17,6 +17,10 @@ class TileUpdateOffsetGrid2D<K>(x: Int, y: Int, grid: Grid2D<K>) : OffsetGrid2D<
         return TileUpdateOffsetGrid2DColumn(this, x)
     }
 
+    operator fun get(coordinates: Coordinates): K {
+        return this[coordinates.x][coordinates.y]
+    }
+
     internal fun addTilesToUpdate(coordinates: List<Coordinates>) {
         val bounds = bounds()
         _tilesToUpdate.addAll(coordinates.filter { bounds.contains(it) })
